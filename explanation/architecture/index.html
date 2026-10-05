@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://terradue.github.io/pystac-ext-aeronet/explanation/architecture/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Architecture - AERONET PySTAC extension</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Architecture";
+        var mkdocs_page_input_path = "explanation/architecture.md";
+        var mkdocs_page_url = "/pystac-ext-aeronet/explanation/architecture/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> AERONET PySTAC extension
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorials</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tutorials/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tutorials/first-steps/">First steps</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">How-to guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../how-to/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../how-to/install/">Install</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../how-to/use-extension/">Work with AERONET metadata</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reference/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reference/fields/">AERONET fields</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reference/api/">Python API</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Explanation</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">Overview</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Architecture</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#station-metadata-and-observations">Station metadata and observations</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#package-structure">Package structure</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#schema-identity">Schema identity</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#validation-boundaries">Validation boundaries</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">AERONET PySTAC extension</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Explanation</li>
+      <li class="breadcrumb-item active">Architecture</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Terradue/pystac-ext-aeronet/edit/main/docs/explanation/architecture.md">Edit on pystac-ext-aeronet</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <!--
+Copyright 2026 Terradue
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<h1 id="scope-architecture-and-validation">Scope, architecture, and validation<a class="headerlink" href="#scope-architecture-and-validation" title="Permanent link">&para;</a></h1>
+<h2 id="station-metadata-and-observations">Station metadata and observations<a class="headerlink" href="#station-metadata-and-observations" title="Permanent link">&para;</a></h2>
+<p><a href="https://aeronet.gsfc.nasa.gov/">NASA AERONET</a> distributes aerosol observations and derived products. The <a href="https://github.com/Terradue/aeronet-stac-extension">Terradue STAC extension</a> provides station metadata for discovery. This Python package stores that metadata; it does not retrieve measurements, perform cloud screening, calculate aerosol optical depth, or count available days.</p>
+<h2 id="package-structure">Package structure<a class="headerlink" href="#package-structure" title="Permanent link">&para;</a></h2>
+<p>The distribution is <code>pystac-ext-aeronet</code>; its API lives in <code>pystac.extensions.aeronet</code>. The wheel excludes the shared <code>pystac.extensions</code> initializer owned by PySTAC.</p>
+<p><code>AeronetExtension</code> combines PySTAC's <code>PropertiesExtension</code> and <code>ExtensionManagementMixin</code>. It holds a reference to the Item's properties dictionary. Updates through either the Item or wrapper are therefore visible to the other, and ordinary PySTAC serialization preserves the fields.</p>
+<p>Only Items are supported. Assets, Catalogs, Collections, and item asset definitions cannot be wrapped. No Collection summary aggregation or automatic extension registration is provided.</p>
+<h2 id="schema-identity">Schema identity<a class="headerlink" href="#schema-identity" title="Permanent link">&para;</a></h2>
+<p>The code uses this exact URL in <code>stac_extensions</code>:</p>
+<div class="highlight"><pre><span></span><code>https://raw.githubusercontent.com/Terradue/aeronet-stac-extension/refs/heads/main/json-schema/schema.json
+</code></pre></div>
+<p><code>has_extension()</code> checks exact membership, rather than accepting alternate URLs or versions. The URL tracks the upstream <code>main</code> branch; the Python package version does not pin a schema revision.</p>
+<p>At the time of this documentation update, the upstream README lists proposal maturity and retains a template identifier. The schema also retains a template <code>$id</code> and title, but its <code>stac_extensions</code> constraint requires the raw GitHub URL above. Use <code>get_schema_uri()</code> rather than copying the README's template identifier. The schema's Item structure and this implementation determine the supported scope, despite broader template text in the upstream README.</p>
+<p>Source: <a href="https://github.com/Terradue/aeronet-stac-extension/blob/main/json-schema/schema.json">upstream JSON Schema</a>.</p>
+<h2 id="validation-boundaries">Validation boundaries<a class="headerlink" href="#validation-boundaries" title="Permanent link">&para;</a></h2>
+<p>Python annotations describe the accepted types, but setters do not enforce them at runtime. Getters require non-null values; they do not verify the type of an existing value. Extension membership checks also do not validate field contents.</p>
+<p><code>apply()</code> assigns all six fields in sequence. It does not compute values, validate consistency, or provide a transactional update. <code>to_dict()</code> serializes without validating. Use PySTAC's <code>item.validate()</code> separately for schema validation, as described in the <a href="../../how-to/use-extension/#validate-a-complete-item">how-to guide</a>.</p>
+<p>The <a href="../../reference/fields/">field reference</a> distinguishes schema constraints from wrapper behavior. Scientific interpretation and the relationship between availability counts and an Item's temporal extent remain the data producer's responsibility.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../" class="btn btn-neutral float-left" title="Overview"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Terradue/pystac-ext-aeronet" class="fa fa-code-fork" style="color: #fcfcfc"> pystac-ext-aeronet</a>
+        </span>
+    
+    
+      <span><a href="../" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
